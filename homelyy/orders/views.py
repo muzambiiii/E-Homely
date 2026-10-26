@@ -454,7 +454,33 @@ def set_stock(request, pk):
     available = request.POST.get('available') == '1'
     Dish.objects.filter(pk=pk).update(is_available=available)
     return JsonResponse({'ok': True})
+@staff_member_required
+@require_POST
+def add_dish(request):
+    name = request.POST.get('name', '').strip()[:100]
+    category = request.POST.get('category', '').strip()[:50]
+    meal = request.POST.get('meal', '')
+    price = request.POST.get('price', '').strip()
+    image = request.FILES.get('image')
 
-def chatbot(request):
+    if not (name and category and meal in dict(Dish.MEALS) and price):
+        return JsonResponse({'ok': False, 'error': 'All fields required.'}, status=400)
+
+    try:
+        price = Decimal(price)
+        if price <= 0:
+            raise ValueError
+    except Exception:
+        return JsonResponse({'ok': False, 'error': 'Invalid price.'}, status=400)
+
+    dish = Dish.objects.create(
+        name=name, category=category, meal=meal, price=price, is_available=True
+    )
+    if image:
+        dish.image = image
+        dish.save(update_fields=['image'])
+
+    return JsonResponse({'ok': True, 'id': dish.id, 'name': dish.name})
+    def chatbot(request):
     """Render the butler chatbot page with avatar and live stock list."""
     return render(request, 'orders/chatbot.html')
