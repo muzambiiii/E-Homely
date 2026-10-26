@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+from whitenoise import WhiteNoise
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,3 +95,4 @@ ADVANCE_OPTIONS = [30, 50]
 # Dish photos uploaded in the admin
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+WHITENOISE_ROOT = BASE_DIR / 'media'
