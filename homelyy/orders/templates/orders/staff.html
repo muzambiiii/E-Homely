@@ -75,6 +75,8 @@
       </div>`;
     }).join('');
     document.getElementById('list').innerHTML = html || '<p>No open orders.</p>';
+    const count = data.orders.length;
+    document.getElementById('order-count').textContent = count ? `(${count})` : '';
     if (fresh && !first) beep();
     first = false;
   }
