@@ -370,7 +370,6 @@ def token_view(request, pk):
     return order_done(request, pk)
 
 
-
 def order_status(request, pk):
     # Polled by the token page every few seconds.
     order = get_object_or_404(Order, pk=pk)
@@ -454,6 +453,8 @@ def set_stock(request, pk):
     available = request.POST.get('available') == '1'
     Dish.objects.filter(pk=pk).update(is_available=available)
     return JsonResponse({'ok': True})
+
+
 @staff_member_required
 @require_POST
 def add_dish(request):
@@ -481,6 +482,8 @@ def add_dish(request):
         dish.save(update_fields=['image'])
 
     return JsonResponse({'ok': True, 'id': dish.id, 'name': dish.name})
-    def chatbot(request):
+
+
+def chatbot(request):
     """Render the butler chatbot page with avatar and live stock list."""
     return render(request, 'orders/chatbot.html')
