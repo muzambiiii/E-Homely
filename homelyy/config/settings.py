@@ -69,6 +69,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'          # ← add this
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # ← add this
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tokens never expire, so keep the browser session (which remembers the
