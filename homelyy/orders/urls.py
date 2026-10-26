@@ -24,6 +24,7 @@ urlpatterns = [
     # staff
     path('staff/login/', staff_auth.StaffLoginView.as_view(), name='staff_login'),
     path('staff/logout/', staff_auth.StaffLogoutView.as_view(), name='staff_logout'),
+    path('staff/api/dishes/add/', views.add_dish, name='add_dish'),
     path('staff/', views.staff_orders, name='staff_orders'),
     path('staff/menu/', views.staff_menu, name='staff_menu'),
     path('staff/api/orders/', views.staff_orders_json, name='staff_orders_json'),
