@@ -9,6 +9,9 @@
 .pn{margin:0 0 10px;padding-right:calc(var(--R) + 6px);font-size:14px;color:var(--muted)}.pn b{color:var(--ink)}
 /* just tall enough for the wheel to fit; a full-screen min-height left a big blank gap above the footer */
 .pstage{min-height:calc(var(--R)*2 + 24px)}
+@media(max-width:700px){
+  .wheel{margin-top:calc(var(--R)*-1 - 60px) !important}
+}
 main{padding-bottom:24px}   /* default 110px was reserved for a cart bar that this page does not have */
 .site-footer .copy{padding-right:84px}   /* keep the chat button off the footer text */
 @media(max-width:700px){
