@@ -19,7 +19,24 @@
     </button>
   {% endfor %}
 </nav>
-
+<details style='margin:16px 0;border:1.5px solid var(--line);border-radius:12px;padding:12px 16px'>
+  <summary style='font-weight:700;cursor:pointer'>+ Add a new dish</summary>
+  <form id='add-form' enctype='multipart/form-data' style='margin-top:12px;display:grid;gap:10px;max-width:420px'>
+    {% csrf_token %}
+    <input name='name' placeholder='Dish name' required style='padding:8px;border:1.5px solid var(--line);border-radius:8px;font-size:15px'>
+    <input name='category' placeholder='Category (e.g. Rice, Curry)' required style='padding:8px;border:1.5px solid var(--line);border-radius:8px;font-size:15px'>
+    <select name='meal' required style='padding:8px;border:1.5px solid var(--line);border-radius:8px;font-size:15px'>
+      <option value=''>-- Meal --</option>
+      <option value='breakfast'>Breakfast</option>
+      <option value='lunch'>Lunch</option>
+      <option value='dinner'>Dinner</option>
+    </select>
+    <input name='price' type='number' min='1' step='0.01' placeholder='Price (₹)' required style='padding:8px;border:1.5px solid var(--line);border-radius:8px;font-size:15px'>
+    <input name='image' type='file' accept='image/*' style='font-size:14px'>
+    <button type='button' id='add-btn' style='justify-self:start'>Add Dish</button>
+    <p id='add-msg' style='margin:0;font-size:14px;font-weight:600'></p>
+  </form>
+</details>
 <div id='list'></div>
 
 <script>
@@ -87,5 +104,23 @@
   });
 
   load();
+  document.getElementById('add-btn').addEventListener('click', async () => {
+  const form = document.getElementById('add-form');
+  const msg = document.getElementById('add-msg');
+  const data = new FormData(form);
+  msg.style.color = '#666'; msg.textContent = 'Adding…';
+  try {
+    const res = await fetch('/staff/api/dishes/add/', { method: 'POST', body: data });
+    const json = await res.json();
+    if (json.ok) {
+      msg.style.color = 'green'; msg.textContent = `✓ "${json.name}" added!`;
+      form.reset(); load();
+    } else {
+      msg.style.color = '#b00020'; msg.textContent = json.error || 'Error.';
+    }
+  } catch (e) {
+    msg.style.color = '#b00020'; msg.textContent = 'Network error.';
+  }
+});
 </script>
 {% endblock %}
