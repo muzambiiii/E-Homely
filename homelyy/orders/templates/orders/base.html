@@ -85,7 +85,7 @@
         <a href="/staff/menu/">Stock</a>
         <form method="post" action="{% url 'staff_logout' %}" style="display:inline;margin:0">{% csrf_token %}<button type="submit" class="pill" style="font-size:13px;padding:8px 16px">Log out</button></form>
         {% else %}
-        <a href="{% url 'menu' %}#meals">Meals</a>
+        <a href="{% url 'menu' %}#meals">Menu</a>
         <a href="{% url 'menu' %}#contact">About</a>
         <a class="pill" id="cartpill" href="{% url 'checkout' %}"><span id="pilllabel">Cart</span> <b
             data-cart-count>0</b></a>
