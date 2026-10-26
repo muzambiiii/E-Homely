@@ -14,11 +14,6 @@
 }
 main{padding-bottom:24px}   /* default 110px was reserved for a cart bar that this page does not have */
 .site-footer .copy{padding-right:84px}   /* keep the chat button off the footer text */
-@media(max-width:700px){
-  /* lift chat button above the bottom of the wheel so they don't overlap */
-  .chat-toggle{bottom:calc(var(--R) + 16px) !important}
-  .chat-window{bottom:calc(var(--R) + 86px) !important}
-}
 .pstage .wlist{width:calc(100vw - var(--R) - 40px);padding:14px;position:sticky;top:calc(var(--hdr) + 8px);
   max-height:calc(100svh - var(--hdr) - 24px);overflow:auto}
 </style>{% endblock %}
